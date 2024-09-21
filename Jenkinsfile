@@ -13,4 +13,14 @@ pipeline {
             }
         }
     }
+    
+    post {
+        always {
+            emailext(
+                subject: "Auto Trigger Jenkins Build",
+                body: "Auto Trigger Jenkins Build has completed sucessfully",
+                to: "aravinddevopslearning@gmail.com"
+            )
+        }
+    }
 }
