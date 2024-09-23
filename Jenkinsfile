@@ -16,11 +16,7 @@ pipeline {
     
     post {
         always {
-            emailext(
-                subject: "Auto Trigger Jenkins Build",
-                body: "Auto Trigger Jenkins Build has completed sucessfully",
-                to: "aravinddevopslearning@gmail.com"
-            )
+            mail bcc: '', body: 'Build completed successfully', cc: '', from: '', replyTo: '', subject: 'Jenkins Build Completed', to: 'aravinddevopslearning@gmail.com'
         }
     }
 }
