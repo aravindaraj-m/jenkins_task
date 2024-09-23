@@ -16,7 +16,14 @@ pipeline {
     
     post {
         always {
-            mail bcc: '', body: 'Build completed successfully', cc: '', from: '', replyTo: '', subject: 'Jenkins Build Completed', to: 'aravinddevopslearning@gmail.com'
+            subject: "Jenkins Build ${JOB_NAME} #${BUILD_NUMBER}: ${BUILD_STATUS}",
+            body: """
+            <p>Build Name: ${JOB_NAME}</p>
+            <p>Build Number: ${BUILD_NUMBER}</p>
+            <p>Build Status: ${BUILD_STATUS}</p>
+            <p>Build URL: <a href="${BUILD_URL}">${BUILD_URL}</a></p>
+            """,
+            to: 'aravinddevopslearning@gmail.com'
         }
     }
 }
