@@ -26,6 +26,7 @@ pipeline {
                 <p>Build URL: <a href="${BUILD_URL}">${BUILD_URL}</a></p>
                 """,
                 to: 'aravinddevopslearning@gmail.com'
+	    }
         }
     }
 }
