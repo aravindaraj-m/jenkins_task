@@ -31,6 +31,7 @@ pipeline {
     		    replyTo: '',
     		    subject: "Jenkins Build #${BUILD_NUMBER} - ${buildStatus}",
     		    to: 'aravinddevopslearning@gmail.com'
+		)
 	    }
         }
     }
