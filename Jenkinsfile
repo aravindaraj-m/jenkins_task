@@ -17,15 +17,20 @@ pipeline {
     post {
         always {
 	   script{
-		def buildStatus = currentBuild.result
-                mail subject: "Jenkins Build ${JOB_NAME} #${BUILD_NUMBER}: ${BUILD_STATUS}",
-                body: """
-                <p>Build Name: ${JOB_NAME}</p>
-                <p>Build Number: ${BUILD_NUMBER}</p>
-                <p>Build Status: ${BUILD_STATUS}</p>
-                <p>Build URL: <a href="${BUILD_URL}">${BUILD_URL}</a></p>
-                """,
-                to: 'aravinddevopslearning@gmail.com'
+		def buildStatus = currentBuild.currentResult
+                mail (
+    		    bcc: '',
+    		    body: """\
+        		Build Name: ${JOB_NAME}
+        		Build Number: ${BUILD_NUMBER}
+        		Build Status: ${buildStatus}
+        		Build URL: ${BUILD_URL}
+        		""",
+    		    cc: '',
+    		    from: '',
+    		    replyTo: '',
+    		    subject: "Jenkins Build #${BUILD_NUMBER} - ${buildStatus}",
+    		    to: 'aravinddevopslearning@gmail.com'
 	    }
         }
     }
