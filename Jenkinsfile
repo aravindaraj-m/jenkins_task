@@ -16,7 +16,7 @@ pipeline {
     
     post {
         always {
-            subject: "Jenkins Build ${JOB_NAME} #${BUILD_NUMBER}: ${BUILD_STATUS}",
+            mail subject: "Jenkins Build ${JOB_NAME} #${BUILD_NUMBER}: ${BUILD_STATUS}",
             body: """
             <p>Build Name: ${JOB_NAME}</p>
             <p>Build Number: ${BUILD_NUMBER}</p>
