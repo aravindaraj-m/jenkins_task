@@ -13,26 +13,4 @@ pipeline {
             }
         }
     }
-    
-    post {
-        always {
-	   script{
-		def buildStatus = currentBuild.currentResult
-                mail (
-    		    bcc: '',
-    		    body: """\
-        		Build Name: ${JOB_NAME}
-        		Build Number: ${BUILD_NUMBER}
-        		Build Status: ${buildStatus}
-        		Build URL: ${BUILD_URL}
-        		""",
-    		    cc: '',
-    		    from: '',
-    		    replyTo: '',
-    		    subject: "Jenkins Build #${BUILD_NUMBER} - ${buildStatus}",
-    		    to: 'aravinddevopslearning@gmail.com'
-		)
-	    }
-        }
-    }
 }
