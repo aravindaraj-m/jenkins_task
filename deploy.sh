@@ -12,6 +12,8 @@ REMOTE_DIR="/home/$EC2_USER/deployment"
 echo "$PEM_FILE" | tr -d '\r' > /tmp/devops_project_key.pem
 chmod 600 /tmp/devops_project_key.pem
 
+echo "private file created"
+
 cat -e /tmp/devops_project_key.pem
 
 #login to EC2 Instance to stop running container and do clean up of old deployment files
