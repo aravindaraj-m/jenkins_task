@@ -6,7 +6,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN')]) {
                     sh """
-                    chmod -x build.sh
+                    chmod +x build.sh
                     ./build.sh
                     """
                     }
@@ -19,7 +19,7 @@ pipeline {
                     sshUserPrivateKey(credentialsId: 'devops-project-key', keyFileVariable: 'PEM_FILE')]) 
                     {
                         sh """
-                        chmod -x deploy.sh
+                        chmod +x deploy.sh
                         ./deploy.sh
                         """
                     }
