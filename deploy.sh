@@ -16,8 +16,6 @@ set -e
 
 # cat -e /tmp/devops_project_key.pem
 
-# cat -A /tmp/devops_project_key.pem
-
 # echo "content verification"
 # echo "$PEM_FILE" | awk '{print NR ":" $0}'
 
