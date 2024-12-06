@@ -2,15 +2,22 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build a Docker Image and Push the image to Docker Hub') {
             steps {
-                echo 'Running script for Building...'
+                withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN')]) {
+                    sh './build.sh'
+                    }
+                }
             }
         }
-        stage('update') {
+        stage('Deploy the file in server') {
             steps {
-                echo 'updating the this part...'
-            }
+                withCredentials([
+                    string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN'),
+                    sshUserPrivateKey(credentialsId: 'devops-project-key', keyFileVariable: 'PEM_FILE')]) 
+                    {
+                        sh './deploy.sh'
+                    }
+                }
         }
-    }
 }
