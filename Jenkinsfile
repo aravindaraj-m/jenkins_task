@@ -14,18 +14,16 @@ pipeline {
             }
         stage('Deploy the file in server') {
             steps {
-                script {
-                    withCredentials([
-                        string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN'),
-                        sshagent(credentials: ['devops-project-key']) ])
-                        {
-                            sh """
-                            chmod +x deploy.sh
-                            ./deploy.sh
-                            """
-                        }
+                withCredentials([
+                    string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN'),
+                    sshUserPrivateKey(credentialsId: 'devops-project-key', keyFileVariable: 'PEM_FILE')]) 
+                    {
+                        sh """
+                        chmod +x deploy.sh
+                        ./deploy.sh
+                        """
+                    }
                 }
             }
         }
-    }
 }
