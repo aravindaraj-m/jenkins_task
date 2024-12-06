@@ -9,6 +9,7 @@ DOCKER_USERNAME="aravindmathes"
 REMOTE_DIR="/home/$EC2_USER/deployment"
 
 #Temp file for private key
+rm /tmp/devops_project_key.pem
 echo "$PEM_FILE" > /tmp/devops_project_key.pem
 chmod 600 /tmp/devops_project_key.pem
 
