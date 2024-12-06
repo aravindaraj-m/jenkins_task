@@ -10,10 +10,10 @@ echo "logining into docker hub..."
 echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 echo "List of docker images created"
-docker images
+sudo docker images
 
 echo "List of docker containers"
-docker ps -a
+sudo docker ps -a
 
 echo "Logout of Docker Hub"
-docker logout
+suco docker logout
