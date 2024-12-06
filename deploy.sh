@@ -9,12 +9,10 @@ DOCKER_USERNAME="aravindmathes"
 REMOTE_DIR="/home/$EC2_USER/deployment"
 
 #Temp file for private key
-rm /tmp/devops_project_key.pem
-echo "$PEM_FILE" > /tmp/devops_project_key.pem
+echo "$PEM_FILE" | tr -d '\r' > /tmp/devops_project_key.pem
 chmod 600 /tmp/devops_project_key.pem
 
-#Add the EC2 instance's host key to known_hosts
-ssh-keyscan -H "$EC2_HOST" >> ~/.ssh/known_hosts
+cat -e /tmp/devops_project_key.pem
 
 #login to EC2 Instance to stop running container and do clean up of old deployment files
 ssh -t -i /tmp/devops_project_key.pem "$EC2_USER@$EC2_HOST" << EOF
