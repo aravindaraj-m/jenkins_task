@@ -17,7 +17,7 @@ pipeline {
                 script {
                     withCredentials([
                         string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN'),
-                        sshagent(credentials: ['devops-project-key']) 
+                        sshagent(credentials: ['devops-project-key']) ])
                         {
                             sh """
                             chmod +x deploy.sh
