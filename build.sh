@@ -3,9 +3,11 @@
 # Exit on any error
 set -e
 
+DOCKER_USERNAME="aravindmathes"
+
 #login into docker hub with docker credentials
 echo "logining into docker hub..."
-echo "$DOCKERHUB_TOKEN" | docker login -u aravindmathes --password-stdin
+echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 echo "List of docker images created"
 docker images

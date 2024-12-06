@@ -4,7 +4,7 @@
 set -e
 
 EC2_USER="ec2-user"
-EC2_HOST=""
+EC2_HOST="54.91.155.225"
 DOCKER_USERNAME="aravindmathes"
 REMOTE_DIR="/home/$EC2_USER/deployment"
 

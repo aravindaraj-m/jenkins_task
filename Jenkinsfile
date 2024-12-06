@@ -9,7 +9,6 @@ pipeline {
                     }
                 }
             }
-        }
         stage('Deploy the file in server') {
             steps {
                 withCredentials([
@@ -19,5 +18,6 @@ pipeline {
                         sh './deploy.sh'
                     }
                 }
+            }
         }
 }
