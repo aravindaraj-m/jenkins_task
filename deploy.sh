@@ -16,6 +16,9 @@ echo "private file created"
 
 cat -e /tmp/devops_project_key.pem
 
+echo "content verification"
+echo "$PEM_FILE" | awk '{print NR ":" $0}'
+
 #login to EC2 Instance to stop running container and do clean up of old deployment files
 ssh -t -i /tmp/devops_project_key.pem "$EC2_USER@$EC2_HOST" << EOF
   echo "Login to Docker Hub"
