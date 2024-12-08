@@ -33,8 +33,11 @@ for var in "${REQUIRED_VARS[@]}"; do
   fi
 done
 
+echo "FIle permission"
+chmod 600 $PEM_KEY
+
 echo "LOGIN TO EC2 INSTANCE"
-ssh -t -i /tmp/key.pem "$EC2_USER@$EC2_HOST" << EOF
+ssh -i $PEM_KEY "$EC2_USER@$EC2_HOST" << EOF
   
   echo "Docker Images"
   sudo docker images
