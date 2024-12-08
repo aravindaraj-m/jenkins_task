@@ -33,7 +33,7 @@ echo "Loading configuration from $DEPLOY_CONFIG_FILE..."
 source "$CONFIG_FILE"
 
 # Check required variables
-REQUIRED_VARS=("EC2_USER" "EC2_HOST" "IMAGE_TAG" "DOCKER_USERNAME" "REMOTE_DIR")
+REQUIRED_VARS=("EC2_USER" "EC2_HOST" "IMAGE_TAG" "DOCKER_USERNAME" "REMOTE_DIR" "PEM_KEY)
 for var in "${REQUIRED_VARS[@]}"; do
   if [ -z "${!var}" ]; then
     echo "Error: Required variable $var is not set in $DEPLOY_CONFIG_FILE!"
