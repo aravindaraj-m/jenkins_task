@@ -4,7 +4,7 @@
 set -e
 
 echo "CONFIGURATION FILE"
-DEPLOY_CONFIG_FILE="./config.ini"
+DEPLOY_CONFIG_FILE="config.ini"
 
 echo "Loading configuration from $DEPLOY_CONFIG_FILE..."
 source "$DEPLOY_CONFIG_FILE"
