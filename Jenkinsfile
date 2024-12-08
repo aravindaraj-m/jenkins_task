@@ -1,33 +1,28 @@
 pipeline {
     agent any
 
-    environment {
-        EC2_USER = "ec2-user"
-        EC2_HOST = "54.91.155.225"
-        DOCKER_USERNAME = "aravindmathes"
-        REMOTE_DIR="/home/$EC2_USER/deployment/"
-    }
-
     stages {
         stage('Build a Docker Image and Push the image to Docker Hub') {
             steps {
                 withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN')]) {
                     sh """
                     chmod +x build.sh
-                    ./build.sh
+                    ./build.sh $BUILD_NUMBER
                     """
                     }
                 }
             }
-        stage('Deploy the file in server') {
+        stage('Deploy') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN')]) {
-                        sshagent(['devops-project-key']) {
-                            sh """
-                                scp -o StrictHostKeyChecking=no deploy.sh ${EC2_USER}@${EC2_HOST}:${REMOTE_DIR}
-                            """
-                        }
+                    withCredentials([
+                        string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN'),
+                        sshUserPrivateKey(credentialsId: 'devops-project-key', keyFileVariable: 'PEM_KEY')
+                    ]) {
+                        sh '''
+                        chmod +x deploy.sh
+                        ./deploy.sh
+                        '''
                     }
                 }
             }
