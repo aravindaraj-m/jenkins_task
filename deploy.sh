@@ -42,10 +42,14 @@ ssh -i $PEM_KEY "$EC2_USER@$EC2_HOST" << EOF
   echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
   echo docker pull nginx
   echo "Docker Images"
-  echo docker images
-  echo docker images -q | xargs -r docker rmi -f
+  docker images
+  sleep 2
+  docker images -q | xargs -r docker rmi -f
+  sleep 2
+  docker images
+  sleep 2
   echo "Logout of Docker Hub"
-  echo docker logout
+  docker logout
 EOF
 
 # echo "COPY FILES TO EC2 INSTANCE DIRECTORY."
