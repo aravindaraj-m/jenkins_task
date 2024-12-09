@@ -16,7 +16,8 @@ pipeline {
             steps {
                 script {
                     withCredentials([
-                        string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN')]) {
+                        string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN')
+                        sshUserPrivateKey(credentialsId: 'devops-project-key', keyFileVariable: 'PEM_KEY')]) {
                         sh '''
                         chmod +x deploy.sh
                         ./deploy.sh

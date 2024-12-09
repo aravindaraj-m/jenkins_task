@@ -9,21 +9,21 @@ DEPLOY_CONFIG_FILE="config.ini"
 echo "Loading configuration from $DEPLOY_CONFIG_FILE..."
 source "$DEPLOY_CONFIG_FILE"
 
-# echo "CREATE A TEMP FILE TO WRITE PRIVATE KEY"
-# echo "$PEM_FILE" | tr -d '\r' > /tmp/key.pem
-# chmod 600 /tmp/key.pem
+echo "CREATE A TEMP FILE TO WRITE PRIVATE KEY"
+echo "$PEM_KEY" | tr -d '\r' > /tmp/key.pem
+chmod 600 /tmp/key.pem
 
 # echo "Key location"
 # pwd /tmp/key.pem
 
-# echo "private file created"
-# cat /tmp/key.pem
+echo "private file created"
+cat /tmp/key.pem
 
 # echo "content verification"
-# echo "$PEM_FILE" | awk '{print NR ":" $0}'
+# echo "$PEM_KEY" | awk '{print NR ":" $0}'
 
 # Check required variables
-REQUIRED_VARS=("EC2_USER" "EC2_HOST" "IMAGE_TAG" "DOCKER_USERNAME" "REMOTE_DIR" "PEM_KEY")
+REQUIRED_VARS=("EC2_USER" "EC2_HOST" "IMAGE_TAG" "DOCKER_USERNAME" "REMOTE_DIR")
 for var in "${REQUIRED_VARS[@]}"; do
   if [ -z "${!var}" ]; then
     echo "Error: Required variable $var is not set in $DEPLOY_CONFIG_FILE!"
@@ -33,11 +33,11 @@ for var in "${REQUIRED_VARS[@]}"; do
   fi
 done
 
-echo "FIle permission"
-chmod 600 $PEM_KEY
+# echo "FIle permission"
+# chmod 600 $PEM_KEY
 
 echo "LOGIN TO EC2 INSTANCE"
-ssh -i $PEM_KEY "$EC2_USER@$EC2_HOST" << EOF
+ssh -i /tmp/key.pem "$EC2_USER@$EC2_HOST" << EOF
   echo "Login to Docker Hub"
   echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
   docker pull nginx
@@ -53,8 +53,10 @@ ssh -i $PEM_KEY "$EC2_USER@$EC2_HOST" << EOF
   docker logout
 EOF
 
+echo "Deleting Private Key file"
+rm /tmp/key.pem
+
 # echo "COPY FILES TO EC2 INSTANCE DIRECTORY."
 # scp -i /tmp/key.pem textfile.txt "$EC2_USER@$EC2_HOST:$REMOTE_DIR"
 
 # echo "CLEAN UP OF TEMP PRIVATE KEY FILE
-# rm /tmp/key.pem
