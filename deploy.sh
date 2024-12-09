@@ -9,6 +9,9 @@ DEPLOY_CONFIG_FILE="config.ini"
 echo "Loading configuration from $DEPLOY_CONFIG_FILE..."
 source "$DEPLOY_CONFIG_FILE"
 
+touch /tmp/key.pem
+chmod 600 /tmp/key.pem
+
 echo "CREATE A TEMP FILE TO WRITE PRIVATE KEY"
 echo "$PEM_KEY" | tr -d '\r' > /tmp/key.pem
 chmod 600 /tmp/key.pem
