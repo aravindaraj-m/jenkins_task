@@ -38,13 +38,14 @@ chmod 600 $PEM_KEY
 
 echo "LOGIN TO EC2 INSTANCE"
 ssh -i $PEM_KEY "$EC2_USER@$EC2_HOST" << EOF
-  
-  echo "Docker Images"
-  sudo docker images
   echo "Login to Docker Hub"
   echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  echo docker pull nginx
+  echo "Docker Images"
+  echo docker images
+  echo docker images -q | xargs -r docker rmi -f
   echo "Logout of Docker Hub"
-  echo sudo docker logout
+  echo docker logout
 EOF
 
 # echo "COPY FILES TO EC2 INSTANCE DIRECTORY."
