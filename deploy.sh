@@ -40,11 +40,12 @@ echo "LOGIN TO EC2 INSTANCE"
 ssh -i $PEM_KEY "$EC2_USER@$EC2_HOST" << EOF
   echo "Login to Docker Hub"
   echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  echo docker pull nginx
+  docker pull nginx
   echo "Docker Images"
   docker images
   sleep 2
   docker images -q | xargs -r docker rmi -f
+  #docker images -q | tee >(xargs -r echo) | xargs -r docker rmi -f
   sleep 2
   docker images
   sleep 2
