@@ -13,11 +13,11 @@ echo "CREATE A TEMP FILE TO WRITE PRIVATE KEY"
 echo "$PEM_KEY" | tr -d '\r' > /tmp/key.pem
 chmod 600 /tmp/key.pem
 
-# echo "Key location"
-# pwd /tmp/key.pem
-
 echo "private file created"
 cat /tmp/key.pem
+
+echo "Key location"
+pwd /tmp/key.pem
 
 # echo "content verification"
 # echo "$PEM_KEY" | awk '{print NR ":" $0}'
