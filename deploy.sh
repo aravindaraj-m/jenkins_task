@@ -10,7 +10,7 @@ echo "Loading configuration from $DEPLOY_CONFIG_FILE..."
 source "$DEPLOY_CONFIG_FILE"
 
 echo "CREATE A TEMP FILE TO WRITE PRIVATE KEY"
-echo "$PEM_KEY" | tr -d '\r' > /tmp/key.pem
+$PEM_KEY | tr -d '\r' > /tmp/key.pem
 chmod 600 /tmp/key.pem
 
 echo "private file created"
@@ -54,7 +54,7 @@ ssh -i /tmp/key.pem "$EC2_USER@$EC2_HOST" << EOF
 EOF
 
 echo "Deleting Private Key file"
-rm /tmp/key.pem
+#rm /tmp/key.pem
 
 # echo "COPY FILES TO EC2 INSTANCE DIRECTORY."
 # scp -i /tmp/key.pem textfile.txt "$EC2_USER@$EC2_HOST:$REMOTE_DIR"
