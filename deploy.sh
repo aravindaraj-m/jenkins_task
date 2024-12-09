@@ -10,7 +10,7 @@ echo "Loading configuration from $DEPLOY_CONFIG_FILE..."
 source "$DEPLOY_CONFIG_FILE"
 
 echo "CREATE A TEMP FILE TO WRITE PRIVATE KEY"
-$PEM_KEY | tr -d '\r' > /tmp/key.pem
+echo "$PEM_KEY" | tr -d '\r' > /tmp/key.pem
 chmod 600 /tmp/key.pem
 
 echo "private file created"
@@ -18,9 +18,6 @@ cat /tmp/key.pem
 
 echo "Key location"
 pwd /tmp/key.pem
-
-# echo "content verification"
-# echo "$PEM_KEY" | awk '{print NR ":" $0}'
 
 # Check required variables
 REQUIRED_VARS=("EC2_USER" "EC2_HOST" "IMAGE_TAG" "DOCKER_USERNAME" "REMOTE_DIR")
@@ -33,7 +30,7 @@ for var in "${REQUIRED_VARS[@]}"; do
   fi
 done
 
-# echo "FIle permission"
+# echo "PEM Key File permission"
 # chmod 600 $PEM_KEY
 
 echo "LOGIN TO EC2 INSTANCE"
