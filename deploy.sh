@@ -33,14 +33,17 @@ for var in "${REQUIRED_VARS[@]}"; do
   fi
 done
 
+echo "logining into docker hub..."
+echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 echo "Docker Images"
-docker image
+docker images
 
 echo "Docker Pull image"
 docker pull nginx
 
 echo "Docker Images"
-docker image
+docker images
 
 echo "Docker image remove"
 docker images -q | xargs -r docker rmi -f
