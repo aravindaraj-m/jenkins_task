@@ -10,6 +10,7 @@ if [ -z "$1" ]; then
 fi
 
 IMAGE_TAG=$1
+
 # Configuration file
 CONFIG_FILE="config.ini"
 
@@ -19,7 +20,7 @@ if [ ! -f "$CONFIG_FILE" ]; then
   exit 1
 fi
 
-# Add or update the image tag
+# Add or update the image tag with jenkins build number
 if grep -q "IMAGE_TAG" "$CONFIG_FILE"; then
   sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=$IMAGE_TAG/" "$CONFIG_FILE"
 else
@@ -33,7 +34,7 @@ echo "Loading configuration from $DEPLOY_CONFIG_FILE..."
 source "$CONFIG_FILE"
 
 # Check required variables
-REQUIRED_VARS=("EC2_USER" "EC2_HOST" "IMAGE_TAG" "DOCKER_USERNAME" "REMOTE_DIR")
+REQUIRED_VARS=("IMAGE_TAG" "DOCKER_USERNAME")
 for var in "${REQUIRED_VARS[@]}"; do
   if [ -z "${!var}" ]; then
     echo "Error: Required variable $var is not set in $DEPLOY_CONFIG_FILE!"

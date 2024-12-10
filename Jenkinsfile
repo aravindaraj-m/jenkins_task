@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Build a Docker Image and Push the image to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN')]) {
+                script {
+                    withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN')]) {
                     sh """
                     chmod +x build.sh
                     ./build.sh $BUILD_NUMBER
@@ -12,11 +13,11 @@ pipeline {
                     }
                 }
             }
+        }
         stage('Deploy') {
             steps {
-                withCredentials([
-                    string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN'),
-                    sshUserPrivateKey(credentialsId: 'devops-project-key', keyFileVariable: 'PEM_KEY')]) {
+                script {
+                    withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN')]) {
                         sh """
                         chmod +x deploy.sh
                         ./deploy.sh
@@ -25,4 +26,5 @@ pipeline {
                 }
             }
         }
+    }
 }
